@@ -17,6 +17,16 @@ public class LaserBeam extends IslandObject {
     }
 
     @Override
+    public boolean isTouching(IslandObject other) {
+        return y == other.y;
+    }
+
+    @Override
+    public boolean canHit(IslandObject other) {
+        return true;// other.equals(Coconut);
+    }
+
+    @Override
     public void step() {
         y -= 3;
     }

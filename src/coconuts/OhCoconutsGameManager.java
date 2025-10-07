@@ -2,6 +2,8 @@ package coconuts;
 
 // https://stackoverflow.com/questions/42443148/how-to-correctly-separate-view-from-model-in-javafx
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.Collection;
@@ -68,7 +70,7 @@ public class OhCoconutsGameManager {
     }
 
     public Crab getCrab() {
-        return theCrab;
+            return theCrab;
     }
 
     public void killCrab() {
@@ -88,6 +90,10 @@ public class OhCoconutsGameManager {
             for (HittableIslandObject hittableObject : hittableIslandSubjects) {
                 if (thisObj.canHit(hittableObject) && thisObj.isTouching(hittableObject)) {
                     // TODO: add code here to process the hit
+                    ImageView imageView = new ImageView(new Image("file:images/explody.png"));
+                    imageView.setPreserveRatio(true);
+                    imageView.setFitWidth(50.0);
+                    hittableObject.setImageView(imageView);
                     scheduledForRemoval.add(hittableObject);
                     gamePane.getChildren().remove(hittableObject.getImageView());
                 }

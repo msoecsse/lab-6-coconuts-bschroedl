@@ -2,6 +2,8 @@ package coconuts;
 
 // https://stackoverflow.com/questions/42443148/how-to-correctly-separate-view-from-model-in-javafx
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.util.Collection;
@@ -69,7 +71,7 @@ public class OhCoconutsGameManager {
     }
 
     public Crab getCrab() {
-        return theCrab;
+            return theCrab;
     }
 
     public void killCrab() {
@@ -92,6 +94,10 @@ public class OhCoconutsGameManager {
                     if (thisObj.isGroundObject() && hittableObject instanceof Coconut) {
                         beachScore += 1;
                     }
+                    ImageView imageView = new ImageView(new Image("file:images/explody.png"));
+                    imageView.setPreserveRatio(true);
+                    imageView.setFitWidth(50.0);
+                    hittableObject.setImageView(imageView);
                     scheduledForRemoval.add(hittableObject);
                     gamePane.getChildren().remove(hittableObject.getImageView());
                 }
@@ -99,7 +105,6 @@ public class OhCoconutsGameManager {
         }
         // actually remove the objects as needed
         for (IslandObject thisObj : scheduledForRemoval) {
-            System.out.println("Removing object");
             allObjects.remove(thisObj);
             if (thisObj instanceof HittableIslandObject) {
                 hittableIslandSubjects.remove((HittableIslandObject) thisObj);

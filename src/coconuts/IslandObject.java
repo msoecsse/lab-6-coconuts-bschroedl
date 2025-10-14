@@ -29,6 +29,9 @@ public abstract class IslandObject {
     protected ImageView getImageView() {
         return imageView;
     }
+    public void setImageView(ImageView imageView){
+        this.imageView = imageView;
+    }
 
     public void display() {
         if (imageView != null) {
@@ -58,7 +61,7 @@ public abstract class IslandObject {
     }
 
     public boolean isTouching(IslandObject other) {
-        return false;
+        return true;
     }
 
     public abstract void step();

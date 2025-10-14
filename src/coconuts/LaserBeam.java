@@ -13,7 +13,17 @@ public class LaserBeam extends IslandObject {
     }
 
     public int hittable_height() {
-        return y + WIDTH;
+        return y;
+    }
+
+    @Override
+    public boolean isTouching(IslandObject other) {
+        return y == other.y && x == other.x;
+    }
+
+    @Override
+    public boolean canHit(IslandObject other) {
+        return other instanceof Coconut;
     }
 
     @Override

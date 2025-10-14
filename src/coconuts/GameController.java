@@ -17,6 +17,7 @@ public class GameController {
     private static final double MILLISECONDS_PER_STEP = 1000.0 / 30;
     private Timeline coconutTimeline;
     private boolean started = false;
+    private Timeline laserBeamTimeLine;
 
     @FXML
     private Pane gamePane;
@@ -38,6 +39,16 @@ public class GameController {
                 coconutTimeline.pause();
         }));
         coconutTimeline.setCycleCount(Timeline.INDEFINITE);
+
+        laserBeamTimeLine = new Timeline(new KeyFrame(Duration.millis(MILLISECONDS_PER_STEP), (e) -> {
+            theGame.tryDropCoconut();
+            theGame.advanceOneTick();
+            if (theGame.done())
+                coconutTimeline.pause();
+        }));
+        coconutTimeline.setCycleCount(Timeline.INDEFINITE);
+
+
     }
 
     @FXML
@@ -55,5 +66,7 @@ public class GameController {
                 started = false;
             }
         }
+
+
     }
 }

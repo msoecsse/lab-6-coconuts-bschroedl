@@ -6,6 +6,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 // JavaFX Controller class for the game - generally, JavaFX elements (other than Image) should be here
@@ -15,6 +16,8 @@ public class GameController {
      * Time between calls to step() (ms)
      */
     private static final double MILLISECONDS_PER_STEP = 1000.0 / 30;
+    public Text beachScore;
+    public Text crabScore;
     private Timeline coconutTimeline;
     private boolean started = false;
     private Timeline laserBeamTimeLine;
@@ -28,7 +31,7 @@ public class GameController {
     @FXML
     public void initialize() {
         theGame = new OhCoconutsGameManager((int) (gamePane.getPrefHeight() - theBeach.getPrefHeight()),
-                (int) (gamePane.getPrefWidth()), gamePane);
+                (int) (gamePane.getPrefWidth()), gamePane, crabScore, beachScore);
 
         gamePane.setFocusTraversable(true);
 

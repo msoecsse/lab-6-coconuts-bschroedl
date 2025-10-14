@@ -41,12 +41,11 @@ public class GameController {
         coconutTimeline.setCycleCount(Timeline.INDEFINITE);
 
         laserBeamTimeLine = new Timeline(new KeyFrame(Duration.millis(MILLISECONDS_PER_STEP), (e) -> {
-            theGame.tryDropCoconut();
             theGame.advanceOneTick();
             if (theGame.done())
-                coconutTimeline.pause();
+                laserBeamTimeLine.pause();
         }));
-        coconutTimeline.setCycleCount(Timeline.INDEFINITE);
+        laserBeamTimeLine.setCycleCount(Timeline.INDEFINITE);
 
 
     }
@@ -57,14 +56,19 @@ public class GameController {
             theGame.getCrab().crawl(10);
         } else if (keyEvent.getCode() == KeyCode.LEFT && !theGame.done()) {
             theGame.getCrab().crawl(-10);
-        } else if (keyEvent.getCode() == KeyCode.SPACE) {
+        }  else if (keyEvent.getCode() == KeyCode.SPACE) {
             if (!started) {
                 coconutTimeline.play();
+                laserBeamTimeLine.play();
                 started = true;
             } else {
                 coconutTimeline.pause();
+                laserBeamTimeLine.pause();
                 started = false;
             }
+        }
+        if (keyEvent.getCode() == KeyCode.UP && !theGame.done()) {
+            theGame.tryShootLasar();
         }
 
 

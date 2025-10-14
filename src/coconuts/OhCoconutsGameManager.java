@@ -22,6 +22,7 @@ public class OhCoconutsGameManager {
     private Beach theBeach;
     /* game play */
     private int coconutsInFlight = 0;
+    private int flyingLasars = 0;
     private int gameTick = 0;
     private int beachScore = 0;
 
@@ -66,6 +67,17 @@ public class OhCoconutsGameManager {
             Coconut c = new Coconut(this, (int) (Math.random() * width));
             registerObject(c);
             gamePane.getChildren().add(c.getImageView());
+        }
+        gameTick++;
+    }
+    public void tryShootLasar(){
+        System.out.println("why no work");
+        if (theCrab != null) {
+            flyingLasars += 1;
+            LaserBeam l = new LaserBeam(this, theCrab.y+20,theCrab.width/3+ theCrab.x);
+
+            registerObject(l);
+            gamePane.getChildren().add(l.getImageView());
         }
         gameTick++;
     }

@@ -21,6 +21,7 @@ public class OhCoconutsGameManager {
     /* game play */
     private int coconutsInFlight = 0;
     private int gameTick = 0;
+    private int beachScore = 0;
 
     public OhCoconutsGameManager(int height, int width, Pane gamePane) {
         this.height = height;
@@ -88,6 +89,9 @@ public class OhCoconutsGameManager {
             for (HittableIslandObject hittableObject : hittableIslandSubjects) {
                 if (thisObj.canHit(hittableObject) && thisObj.isTouching(hittableObject)) {
                     // TODO: add code here to process the hit
+                    if (thisObj.isGroundObject() && hittableObject instanceof Coconut) {
+                        beachScore += 1;
+                    }
                     scheduledForRemoval.add(hittableObject);
                     gamePane.getChildren().remove(hittableObject.getImageView());
                 }
@@ -95,6 +99,7 @@ public class OhCoconutsGameManager {
         }
         // actually remove the objects as needed
         for (IslandObject thisObj : scheduledForRemoval) {
+            System.out.println("Removing object");
             allObjects.remove(thisObj);
             if (thisObj instanceof HittableIslandObject) {
                 hittableIslandSubjects.remove((HittableIslandObject) thisObj);

@@ -11,4 +11,23 @@ public class Beach extends IslandObject {
 
     @Override
     public void step() { /* do nothing */ }
+    
+    @Override
+    public boolean canHit(IslandObject other){
+        return true;
+    }
+    
+    @Override
+    public boolean isGroundObject() {
+        return true;
+    }
+    
+    @Override
+    public boolean isTouching(IslandObject other){
+//        System.out.println(this.y + " " + other.y);
+        if (other instanceof Crab) {
+            return false;
+        }
+        return this.y <= other.y - 10;
+    }
 }

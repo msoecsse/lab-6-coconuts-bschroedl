@@ -5,6 +5,7 @@ package coconuts;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -20,15 +21,19 @@ public class OhCoconutsGameManager {
     private Pane gamePane;
     private Crab theCrab;
     private Beach theBeach;
+    public Text crabScore;
+    public Text beachScore;
     /* game play */
     private int coconutsInFlight = 0;
     private int gameTick = 0;
-    private int beachScore = 0;
+    private int pastHistory = 0;
 
-    public OhCoconutsGameManager(int height, int width, Pane gamePane) {
+    public OhCoconutsGameManager(int height, int width, Pane gamePane, Text crabScore, Text beachScore) {
         this.height = height;
         this.width = width;
         this.gamePane = gamePane;
+        this.crabScore = crabScore;
+        this.beachScore = beachScore;
 
         this.theCrab = new Crab(this, height, width);
         registerObject(theCrab);
@@ -92,12 +97,29 @@ public class OhCoconutsGameManager {
                 if (thisObj.canHit(hittableObject) && thisObj.isTouching(hittableObject)) {
                     // TODO: add code here to process the hit
                     if (thisObj.isGroundObject() && hittableObject instanceof Coconut) {
-                        beachScore += 1;
+                        if (pastHistory >= 0) {
+                            pastHistory++;
+                        } else {
+                            pastHistory = 1;
+                        }
+                        
+                        int tmpBeachScore = Integer.parseInt(beachScore.getText()) + 1;
+                        
+                        if (pastHistory > 10) {
+                            tmpBeachScore += (int) Math.min(100, tmpBeachScore*.1);
+                        }
+                        if (tmpBeachScore < 10) {
+                            beachScore.setText("00" + tmpBeachScore);
+                        } else if (tmpBeachScore < 100) {
+                            beachScore.setText("0" + tmpBeachScore);
+                        } else {
+                            beachScore.setText("" + tmpBeachScore);
+                        }
                     }
-                    ImageView imageView = new ImageView(new Image("file:images/explody.png"));
-                    imageView.setPreserveRatio(true);
-                    imageView.setFitWidth(50.0);
-                    hittableObject.setImageView(imageView);
+//                    ImageView imageView = new ImageView(new Image("file:images/explody.png"));
+//                    imageView.setPreserveRatio(true);
+//                    imageView.setFitWidth(50.0);
+//                    hittableObject.setImageView(imageView);
                     scheduledForRemoval.add(hittableObject);
                     gamePane.getChildren().remove(hittableObject.getImageView());
                 }

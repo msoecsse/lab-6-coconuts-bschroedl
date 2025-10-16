@@ -53,7 +53,7 @@ public abstract class IslandObject {
     }
 
     public boolean isFalling() {
-        return false;
+        return true;
     }
 
     public boolean canHit(IslandObject other) {

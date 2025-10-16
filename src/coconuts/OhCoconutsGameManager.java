@@ -100,20 +100,24 @@ public class OhCoconutsGameManager {
                         if (pastHistory >= 0) {
                             pastHistory++;
                         } else {
-                            pastHistory = 1;
+                            pastHistory = 0;
                         }
                         
                         int tmpBeachScore = Integer.parseInt(beachScore.getText()) + 1;
                         
                         if (pastHistory > 10) {
-                            tmpBeachScore += (int) Math.min(100, tmpBeachScore*.1);
+                            tmpBeachScore += ((int) Math.min(100, tmpBeachScore*.1));
                         }
+                        if (tmpBeachScore >= 1000 && pastHistory > 10) {
+                            tmpBeachScore -= 1;
+                        }
+                        
                         if (tmpBeachScore < 10) {
                             beachScore.setText("00" + tmpBeachScore);
                         } else if (tmpBeachScore < 100) {
                             beachScore.setText("0" + tmpBeachScore);
                         } else {
-                            beachScore.setText("" + tmpBeachScore);
+                            beachScore.setText("" + (tmpBeachScore));
                         }
                     }
 //                    ImageView imageView = new ImageView(new Image("file:images/explody.png"));
